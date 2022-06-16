@@ -1,12 +1,12 @@
-import sys
-
 import requests
 from requests.exceptions import ConnectionError
+
+from znotify.static import ENDPOINT
 
 
 class Client:
     def __init__(self, user_id, endpoint):
-        self.endpoint = endpoint if endpoint else "https://push.learningman.top"
+        self.endpoint = endpoint if endpoint else ENDPOINT
         self.user_id = user_id
 
     @staticmethod
@@ -16,17 +16,13 @@ class Client:
         return client
 
     def check(self):
-        resp = requests.get(f"{self.endpoint}/{self.user_id}/check")
+        resp = requests.get(f"{self.endpoint}/check", params={"user_id": self.user_id})
         if not resp.json():
             raise Exception("User ID not valid")
 
     def send(self, content, title=None, long=None):
         if content is None or content == "":
             raise Exception("Content is required")
-
-        params = {}
-        if 'unittest' in sys.modules:
-            params['dry'] = True
 
         if title is None:
             title = "Notification"
@@ -39,7 +35,7 @@ class Client:
             "long": long
         }
         try:
-            resp = requests.post(f"{self.endpoint}/{self.user_id}/send", data=data, params=params)
+            resp = requests.post(f"{self.endpoint}/{self.user_id}/send", data=data)
         except ConnectionError as e:
             raise Exception("Connection error") from e
         return resp.json()
