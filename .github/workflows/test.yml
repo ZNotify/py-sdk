@@ -30,8 +30,11 @@ jobs:
           python-version: ${{ matrix.python-version }}
           cache: 'poetry'
 
+      - name: Install poetry with new python
+        run: pip install poetry
+
       - name: Install dependencies
-        run: poetry install
+        run: python -m poetry install
 
       - name: Test
-        run: poetry run python -m unittest discover
+        run: python -m poetry run python -m unittest discover
