@@ -13,11 +13,12 @@ class TestSend(unittest.TestCase):
     def test_send_0(self):
         with self.assertRaises(Exception) as context:
             send("zxilly", "")
-        self.assertTrue("Content is required" in str(context.exception))
+            self.assertTrue("Content is required" in str(context.exception))
         pass
 
     def test_send_1(self):
-        self.assertEqual(send("zxilly", "test"), {
+        ret = send("test", "test")
+        self.assertEqual(ret, ret | {
             "content": "test",
             "long": "",
             "title": "Notification"
@@ -25,7 +26,8 @@ class TestSend(unittest.TestCase):
         pass
 
     def test_send_2(self):
-        self.assertEqual(send("zxilly", "content", "title"), {
+        ret = send("test", "content", "title")
+        self.assertEqual(ret, ret | {
             "content": "content",
             "long": "",
             "title": "title"
@@ -33,11 +35,13 @@ class TestSend(unittest.TestCase):
         pass
 
     def test_send_3(self):
-        self.assertEqual(send("zxilly", "content", "title", "long"), {
+        ret = send("test", "content", "title", "long")
+        self.assertEqual(ret, ret | {
             "content": "content",
             "long": "long",
             "title": "title"
         })
+        pass
 
 
 if __name__ == "__main__":

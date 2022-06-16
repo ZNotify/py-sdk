@@ -5,7 +5,7 @@ from znotify import Client
 class TestClient(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.client = Client.create("zxilly")
+        cls.client = Client.create("test")
         pass
 
     def test_client_create(self):
@@ -21,11 +21,12 @@ class TestClient(unittest.TestCase):
     def test_client_send_0(self):
         with self.assertRaises(Exception) as context:
             self.client.send("")
-        self.assertTrue("Content is required" in str(context.exception))
+            self.assertTrue("Content is required" in str(context.exception))
         pass
 
     def test_client_send_1(self):
-        self.assertEqual(self.client.send("test"), {
+        ret = self.client.send("test")
+        self.assertEqual(ret, ret | {
             "content": "test",
             "long": "",
             "title": "Notification"
@@ -33,7 +34,8 @@ class TestClient(unittest.TestCase):
         pass
 
     def test_client_send_2(self):
-        self.assertEqual(self.client.send("content", "title"), {
+        ret = self.client.send("content", "title")
+        self.assertEqual(ret, ret | {
             "content": "content",
             "long": "",
             "title": "title"
@@ -41,7 +43,8 @@ class TestClient(unittest.TestCase):
         pass
 
     def test_client_send_3(self):
-        self.assertEqual(self.client.send("content", "title", "long"), {
+        ret = self.client.send("content", "title", "long")
+        self.assertEqual(ret, ret | {
             "content": "content",
             "long": "long",
             "title": "title"
