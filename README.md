@@ -11,9 +11,9 @@ pip install znotify
 ## Usage
 
 ```python
-import znotify
+from znotify import Client
 
-client = znotify.Client.create("user_id")
+client = Client.create("user_id")
 client.send("Hello World")
 ```
 

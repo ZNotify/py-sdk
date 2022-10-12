@@ -17,7 +17,7 @@ class Client:
 
     def check(self):
         resp = requests.get(f"{self.endpoint}/check", params={"user_id": self.user_id})
-        if not resp.json():
+        if not resp.json()["body"]:
             raise Exception("User ID not valid")
 
     def send(self, content, title=None, long=None):
@@ -38,4 +38,4 @@ class Client:
             resp = requests.post(f"{self.endpoint}/{self.user_id}/send", data=data)
         except ConnectionError as e:
             raise Exception("Connection error") from e
-        return resp.json()
+        return resp.json()["body"]
