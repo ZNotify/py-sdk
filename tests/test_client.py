@@ -1,4 +1,6 @@
 import unittest
+import warnings
+
 from znotify import Client
 
 
@@ -53,3 +55,4 @@ class TestClient(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+

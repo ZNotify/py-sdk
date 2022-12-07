@@ -1,4 +1,5 @@
 import unittest
+
 from znotify.send import send
 
 

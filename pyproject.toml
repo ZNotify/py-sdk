@@ -1,9 +1,9 @@
 [tool.poetry]
 name = "znotify"
-version = "0.2.0"
+version = "0.3.0"
 description = "sdk for notify"
 authors = ["Zxilly <zhouxinyu1001@gmail.com>"]
-license = "GPL-3.0"
+license = "Apache-2.0"
 readme = "README.md"
 repository = "https://github.com/ZNotify/py-sdk"
 classifiers = [
@@ -22,6 +22,9 @@ requests = "^2.27.1"
 
 [tool.poetry.urls]
 "Bug Tracker" = "https://github.com/ZNotify/py-sdk/issues"
+
+[tool.poetry.group.dev.dependencies]
+poethepoet = "^0.16.5"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
