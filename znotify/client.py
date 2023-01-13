@@ -20,7 +20,7 @@ class Client:
         return client
 
     def check(self):
-        resp = self.session.get(f"{self.endpoint}/check", params={"user_id": self.user_id})
+        resp = self.session.get(f"{self.endpoint}/check", params={"user_secret": self.user_id})
         if not resp.json()["body"]:
             raise Exception("User ID not valid")
 
