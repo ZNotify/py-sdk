@@ -6,7 +6,12 @@ on:
   pull_request:
     branches: [ master ]
   workflow_call:
-
+    inputs:
+      require-current-artifact:
+        description: Require the server artifact from the current workflow run
+        required: false
+        type: boolean
+        default: false
 jobs:
   test:
     runs-on: ${{ matrix.os }}
@@ -20,7 +25,9 @@ jobs:
         with:
           repository: 'ZNotify/py-sdk'
 
-      - uses: ZNotify/test-action@master
+      - uses: ZNotify/test-server-action@master
+        with:
+          require-current-artifact: ${{ inputs.require-current-artifact || false }}
 
       - name: Install poetry
         run: pipx install poetry
@@ -39,3 +46,4 @@ jobs:
 
       - name: Test
         run: python -m poetry run python -m unittest discover
+
